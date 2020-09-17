@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	path := "random2.bin"
+	path := "random4.bin"
 
 	buf, err := os.Open(path)
 	if err != nil {
@@ -25,14 +25,17 @@ func main() {
 	r := bufio.NewReader(buf)
 
 	i := 0
-	for i < 1000 {
+	for i < 100000 {
 		var n uint8
 		err := binary.Read(r, binary.LittleEndian, &n)
 		if err != nil {
 			fmt.Println("Error reading file:", err)
 			return
 		}
-		fmt.Print(fmt.Sprintf("%v,", n))
+        if (n > 31) {
+            fmt.Print(fmt.Sprintf("%v,", n))
+        }
 		i += 1
 	}
+	fmt.Println("Finished")
 }
